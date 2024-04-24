@@ -16,6 +16,7 @@ console.log(stopButton);
 const changeIntervalInMilliseconds = 1000;
 
 let lastBodyBgColor = null;
+let timerId = null;
 
 function changeBgColor() {
   body.style.backgroundColor = getRandomHexColor();
