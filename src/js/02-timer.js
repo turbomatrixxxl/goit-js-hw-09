@@ -104,6 +104,7 @@ startButton.addEventListener('click', () => {
 });
 
 const options = {
+  enableSeconds: true,
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
