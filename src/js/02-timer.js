@@ -62,20 +62,44 @@ function chronometre(ms) {
 }
 // console.log(currentDataInMilliseconds);
 
-input.addEventListener('change', ev => {
-  console.log(ev.currentTarget.value);
-  const chosenData = new Date(ev.currentTarget.value);
-  chosenDataInMiliseconds = chosenData.getTime();
-  //   console.log(chosenDataInMiliseconds);
+// input.addEventListener('change', ev => {
+//   console.log(ev.currentTarget.value);
+//   const chosenData = new Date(ev.currentTarget.value);
+//   chosenDataInMiliseconds = chosenData.getTime();
+//   //   console.log(chosenDataInMiliseconds);
 
-  if (chosenDataInMiliseconds <= currentDataInMilliseconds) {
-    // window.alert('Please choose a date in the future');
-    Notiflix.Notify.failure('Please choose a date in the future');
-  } else {
-    startButton.disabled = false;
-    options.defaultDate = ev.currentTarget.value;
-  }
-});
+//   if (chosenDataInMiliseconds <= currentDataInMilliseconds) {
+//     // window.alert('Please choose a date in the future');
+//     Notiflix.Notify.failure('Please choose a date in the future');
+//   } else {
+//     startButton.disabled = false;
+//     options.defaultDate = ev.currentTarget.value;
+//   }
+// });
+
+const options = {
+  enableSeconds: true,
+  enableTime: true,
+  time_24hr: true,
+  defaultDate: new Date(),
+  minuteIncrement: 1,
+  onchange: true,
+  onClose(selectedDates) {
+    const chosenData = selectedDates[0];
+    console.log(chosenData);
+    chosenDataInMiliseconds = chosenData.getTime();
+    console.log(chosenDataInMiliseconds);
+
+    if (chosenDataInMiliseconds <= currentDataInMilliseconds) {
+      // window.alert('Please choose a date in the future');
+      Notiflix.Notify.failure('Please choose a date in the future');
+    } else {
+      startButton.disabled = false;
+    }
+  },
+};
+
+const fp = flatpickr(input, options);
 
 startButton.addEventListener('click', () => {
   startButton.disabled = true;
@@ -102,17 +126,3 @@ startButton.addEventListener('click', () => {
     }
   }, 1000);
 });
-
-const options = {
-  enableSeconds: true,
-  enableTime: true,
-  time_24hr: true,
-  defaultDate: new Date(),
-  minuteIncrement: 1,
-  onchange: true,
-  onClose(selectedDates) {
-    console.log(selectedDates[0]);
-  },
-};
-
-const fp = flatpickr(input, options);
