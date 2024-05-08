@@ -8,7 +8,7 @@ const amount = form.querySelector("input[name = 'amount']");
 
 const createPromiseButton = form.querySelector('button');
 
-// import Notiflix from 'notiflix';
+import Notiflix from 'notiflix';
 
 function createPromise(position, delay) {
   return new Promise((resolve, reject) => {
@@ -37,15 +37,26 @@ createPromiseButton.addEventListener('click', ev => {
     setTimeout(() => {
       createPromise(i, step.value)
         .then(({ position, delay }) => {
+          Notiflix.Notify.success(
+            '✅ Fulfilled promise ${i} in ${step.value}ms'
+          );
+
           console.log(`✅ Fulfilled promise ${i} in ${step.value}ms`);
         })
         .catch(({ position, delay }) => {
+          Notiflix.Notify.failure(
+            '❌ Rejected promise ${i} in ${step.value}ms'
+          );
+
           console.log(`❌ Rejected promise ${i} in ${step.value}ms`);
         });
-      // console.log(`✅ Fulfilled promise ${i} in ${step.value}ms`);
     }, step.value);
   }
 });
+
+// Notiflix.Notify.success('Sol lucet omnibus');
+
+// Notiflix.Notify.failure('Qui timide rogat docet negare');
 
 // createPromise(2, 1500)
 //   .then(({ position, delay }) => {
