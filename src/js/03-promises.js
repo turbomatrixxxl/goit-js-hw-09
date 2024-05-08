@@ -34,18 +34,19 @@ createPromiseButton.addEventListener('click', ev => {
   // console.log(amount.value);
 
   for (let i = 1; i <= amount.value; i++) {
+    const allDelay = parseInt(delayInp.value) + parseInt(step.value);
     const totalDelay =
       parseInt(delayInp.value) + parseInt(step.value) * (i - 1);
     createPromise(i, totalDelay)
       .then(result => {
-        Notiflix.Notify.success(result);
+        Notiflix.Notify.success(result, { timeout: allDelay });
 
-        console.log(`✅ Fulfilled promise ${i} in ${step.value}ms`);
+        console.log(`✅ Fulfilled promise ${i} in ${totalDelay}ms`);
       })
       .catch(error => {
-        Notiflix.Notify.failure(error);
+        Notiflix.Notify.failure(error, { timeout: allDelay });
 
-        console.log(`❌ Rejected promise ${i} in ${step.value}ms`);
+        console.log(`❌ Rejected promise ${i} in ${totalDelay}ms`);
       });
   }
 });
