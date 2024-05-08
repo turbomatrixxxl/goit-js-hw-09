@@ -21,7 +21,7 @@ function createPromise(position, delay) {
         // Reject
         reject(`❌ Rejected promise ${position} in ${delay}ms`);
       }
-    }, delayInp.value);
+    }, delay);
   });
 }
 
@@ -34,34 +34,18 @@ createPromiseButton.addEventListener('click', ev => {
   // console.log(amount.value);
 
   for (let i = 1; i <= amount.value; i++) {
-    setTimeout(() => {
-      createPromise(i, step.value)
-        .then(({ position, delay }) => {
-          Notiflix.Notify.success(
-            '✅ Fulfilled promise ${i} in ${step.value}ms'
-          );
+    const totalDelay =
+      parseInt(delayInp.value) + parseInt(step.value) * (i - 1);
+    createPromise(i, totalDelay)
+      .then(result => {
+        Notiflix.Notify.success(result);
 
-          console.log(`✅ Fulfilled promise ${i} in ${step.value}ms`);
-        })
-        .catch(({ position, delay }) => {
-          Notiflix.Notify.failure(
-            '❌ Rejected promise ${i} in ${step.value}ms'
-          );
+        console.log(`✅ Fulfilled promise ${i} in ${step.value}ms`);
+      })
+      .catch(error => {
+        Notiflix.Notify.failure(error);
 
-          console.log(`❌ Rejected promise ${i} in ${step.value}ms`);
-        });
-    }, step.value);
+        console.log(`❌ Rejected promise ${i} in ${step.value}ms`);
+      });
   }
 });
-
-// Notiflix.Notify.success('Sol lucet omnibus');
-
-// Notiflix.Notify.failure('Qui timide rogat docet negare');
-
-// createPromise(2, 1500)
-//   .then(({ position, delay }) => {
-//     console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-//   })
-//   .catch(({ position, delay }) => {
-//     console.log(`❌ Rejected promise ${position} in ${delay}ms`);
-//   }),
