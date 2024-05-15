@@ -62,20 +62,20 @@ function chronometre(ms) {
 }
 // console.log(currentDataInMilliseconds);
 
-// input.addEventListener('change', ev => {
-//   console.log(ev.currentTarget.value);
-//   const chosenData = new Date(ev.currentTarget.value);
-//   chosenDataInMiliseconds = chosenData.getTime();
-//   //   console.log(chosenDataInMiliseconds);
+input.addEventListener('change', ev => {
+  console.log(ev.currentTarget.value);
+  const chosenData = new Date(ev.currentTarget.value);
+  chosenDataInMiliseconds = chosenData.getTime();
+  //   console.log(chosenDataInMiliseconds);
 
-//   if (chosenDataInMiliseconds <= currentDataInMilliseconds) {
-//     // window.alert('Please choose a date in the future');
-//     Notiflix.Notify.failure('Please choose a date in the future');
-//   } else {
-//     startButton.disabled = false;
-//     options.defaultDate = ev.currentTarget.value;
-//   }
-// });
+  if (chosenDataInMiliseconds <= currentDataInMilliseconds) {
+    // window.alert('Please choose a date in the future');
+    Notiflix.Notify.failure('Please choose a date in the future');
+  } else {
+    startButton.disabled = false;
+    options.defaultDate = ev.currentTarget.value;
+  }
+});
 
 const options = {
   enableSeconds: true,
